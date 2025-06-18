@@ -17,6 +17,20 @@
       "stopAtEntry": false
     },
     {
+      "name": ".NET Core Launch (Alt.Chess.Web)",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "dotnet",
+      "args": [
+        "run",
+        "--project",
+        "${workspaceFolder}/solution/Alt.Chess/src/Alt.Chess.Web/Alt.Chess.Web.csproj"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "stopAtEntry": false
+    },
+    {
       "name": ".NET Core Test (ConsoleApp.Tests)",
       "type": "coreclr",
       "request": "launch",
@@ -24,6 +38,19 @@
       "args": [
         "test",
         "${workspaceFolder}/solution/ConsoleApp/src/ConsoleApp.Tests/ConsoleApp.Tests.csproj"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "stopAtEntry": false
+    }
+    ,{
+      "name": ".NET Core Test (Alt.Chess.Tests)",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "dotnet",
+      "args": [
+        "test",
+        "${workspaceFolder}/solution/Alt.Chess/src/Alt.Chess.Tests/Alt.Chess.Tests.csproj"
       ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
