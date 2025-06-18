@@ -9,6 +9,7 @@
 - MAke sure all class files are in theri own file with the same name as the class
 - Use dependency injection
 - Use the Mediatr pattern
+- Make sure that the application can be executed from VS Code and Visual Studio as a solution
 
 ## Sample Usage
 
@@ -63,3 +64,14 @@ dotnet run --project ConsoleApp foo
 Unknown command: foo
 Try 'help' for a list of commands.
 ```
+
+### Running Tests
+
+```sh
+# From solution/ConsoleApp folder, run all tests:
+dotnet test src\\ConsoleApp.Tests\\ConsoleApp.Tests.csproj
+```
+
+## Error Handling for Missing Dependencies
+
+If a required dependency (like MediatR or DI setup) is missing or misconfigured, the app will now show a clear error message and exit. This helps users quickly identify and fix setup issues.

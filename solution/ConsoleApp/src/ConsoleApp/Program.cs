@@ -7,59 +7,102 @@ using ConsoleApp.Application;
  {
      public static void Main(string[] args)
      {
-         var services = new ServiceCollection();
-         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
-         var provider = services.BuildServiceProvider();
-         var mediator = provider.GetRequiredService<IMediator>();
-
-         if (args.Length == 0)
+         try
          {
-             Console.WriteLine("No arguments provided. Usage: ConsoleApp <command> [options]");
-             Console.WriteLine("Try 'help' for more info.");
-             return;
-         }
+             var services = new ServiceCollection();
+             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
+             var provider = services.BuildServiceProvider();
+             var mediator = provider.GetRequiredService<IMediator>();
 
-         if (args[0].ToLower() == "help")
-         {
-             Console.WriteLine("Usage: ConsoleApp <command> [options]");
-             Console.WriteLine("Commands:");
-             Console.WriteLine("  greet <name>   - Greet the user by name");
-             Console.WriteLine("  add <a> <b>    - Add two numbers");
-             return;
-         }
+             // Handle no arguments
+             if (args.Length == 0)
+             {
+                 Console.WriteLine("No arguments provided. Usage: ConsoleApp <command> [options]");
+                 Console.WriteLine("Try 'help' for more info.");
+                 return;
+             }
 
-         switch (args[0].ToLower())
-         {
-             case "greet":
-                 if (args.Length != 2)
+             // Discover commands dynamically
+             var commandTypes = typeof(Program).Assembly.GetTypes()
+                 .Where(t => typeof(IRequest<string>).IsAssignableFrom(t) && t.Name.EndsWith("Command"))
+                 .ToDictionary(
+                     t => t.Name.Substring(0, t.Name.Length - "Command".Length).ToLower(),
+                     t => t);
+             var cmd = args[0].ToLower();
+
+             // Help output
+             if (cmd == "help")
+             {
+                 Console.WriteLine("Usage: ConsoleApp <command> [options]");
+                 Console.WriteLine("Commands:");
+                 foreach (var kv in commandTypes)
                  {
-                     Console.WriteLine("Error: 'greet' needs exactly one argument (name).");
+                     var ctor = kv.Value.GetConstructors()[0];
+                     var ps = ctor.GetParameters();
+                     var usage = kv.Key;
+                     foreach (var p in ps) usage += $" <{p.Name}>";
+                     Console.WriteLine($"  {usage}   - {kv.Key} command");
                  }
-                 else
-                 {
-                     var result = mediator.Send(new GreetCommand(args[1])).Result;
-                     Console.WriteLine(result);
-                 }
-                 break;
-             case "add":
-                 if (args.Length != 3)
-                 {
-                     Console.WriteLine("Error: 'add' needs two numeric arguments.");
-                 }
-                 else if (int.TryParse(args[1], out int a) && int.TryParse(args[2], out int b))
-                 {
-                     var result = mediator.Send(new AddCommand(a, b)).Result;
-                     Console.WriteLine(result);
-                 }
-                 else
-                 {
-                     Console.WriteLine("Error: Both arguments for 'add' must be numbers.");
-                 }
-                 break;
-             default:
+                 return;
+             }
+
+             // Unknown command
+             if (!commandTypes.TryGetValue(cmd, out var type))
+             {
                  Console.WriteLine($"Unknown command: {args[0]}");
                  Console.WriteLine("Try 'help' for a list of commands.");
-                 break;
+                 return;
+             }
+
+             var ci = type.GetConstructors()[0];
+             var paramInfos = ci.GetParameters();
+             // Missing args
+             if (args.Length - 1 != paramInfos.Length)
+             {
+                 if (paramInfos.Length == 1)
+                     Console.WriteLine($"Error: '{cmd}' needs exactly one argument ({paramInfos[0].Name}).");
+                 else if (paramInfos.Length == 2 && paramInfos.All(p => p.ParameterType == typeof(int)))
+                     Console.WriteLine($"Error: '{cmd}' needs two numeric arguments.");
+                 else
+                     Console.WriteLine($"Error: '{cmd}' needs {paramInfos.Length} arguments.");
+                 return;
+             }
+
+             var ctorArgs = new object[paramInfos.Length];
+             bool bad = false;
+             for (int i = 0; i < paramInfos.Length; i++)
+             {
+                 var p = paramInfos[i];
+                 var raw = args[i + 1];
+                 if (p.ParameterType == typeof(int))
+                 {
+                     if (int.TryParse(raw, out var val)) ctorArgs[i] = val;
+                     else
+                     {
+                         Console.WriteLine($"Error: Both arguments for '{cmd}' must be numbers.");
+                         bad = true; break;
+                     }
+                 }
+                 else if (p.ParameterType == typeof(string))
+                     ctorArgs[i] = raw;
+                 else
+                 {
+                     Console.WriteLine($"Error: unsupported parameter type {p.ParameterType.Name}.");
+                     bad = true; break;
+                 }
+             }
+             if (bad) return;
+
+             // Execute command
+             var cmdObj = ci.Invoke(ctorArgs);
+             var resultTask = (Task<string>)mediator.Send((dynamic)cmdObj);
+             Console.WriteLine(resultTask.Result);
+         }
+         catch (Exception ex)
+         {
+             Console.WriteLine("A critical dependency or configuration is missing. Please check your setup.");
+             Console.WriteLine($"Error details: {ex.Message}");
+             Environment.Exit(1);
          }
      }
  }

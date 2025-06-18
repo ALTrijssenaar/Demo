@@ -10,16 +10,17 @@ namespace ConsoleApp.Tests
     {
         private string RunConsoleApp(params string[] args)
         {
-            var exePath = Path.Combine("..", "ConsoleApp", "bin", "Debug", "net8.0", "ConsoleApp.exe");
-            var psi = new ProcessStartInfo(exePath)
+            // Locate the ConsoleApp.exe based on test assembly location
+            var baseDir = AppContext.BaseDirectory; // e.g., ...\ConsoleApp.Tests\bin\Debug\net9.0
+            var exePath = Path.Combine(baseDir, "..", "..", "..", "..", "ConsoleApp", "bin", "Debug", "net8.0", "ConsoleApp.dll");
+            var psi = new ProcessStartInfo("dotnet", $"\"{exePath}\" {string.Join(" ", args)}")
             {
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
-                CreateNoWindow = true,
-                Arguments = string.Join(" ", args)
+                CreateNoWindow = true
             };
-            using var proc = Process.Start(psi);
+            using var proc = Process.Start(psi)!; // assume success
             var output = proc.StandardOutput.ReadToEnd();
             proc.WaitForExit();
             return output.Trim();
@@ -37,7 +38,8 @@ namespace ConsoleApp.Tests
         {
             var output = RunConsoleApp("help");
             Assert.Contains("Usage: ConsoleApp", output);
-            Assert.Contains("greet <name>", output);
+            Assert.Contains("greet", output, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("add", output, StringComparison.OrdinalIgnoreCase);
         }
 
         [Fact]

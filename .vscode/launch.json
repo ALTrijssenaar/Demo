@@ -1,0 +1,33 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET Core Launch (ConsoleApp)",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "dotnet",
+      "args": [
+        "run",
+        "--project",
+        "${workspaceFolder}/solution/ConsoleApp/src/ConsoleApp/ConsoleApp.csproj",
+        "help"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "stopAtEntry": false
+    },
+    {
+      "name": ".NET Core Test (ConsoleApp.Tests)",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "dotnet",
+      "args": [
+        "test",
+        "${workspaceFolder}/solution/ConsoleApp/src/ConsoleApp.Tests/ConsoleApp.Tests.csproj"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "stopAtEntry": false
+    }
+  ]
+}
