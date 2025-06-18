@@ -1,5 +1,14 @@
 {
   "version": "0.2.0",
+  "compounds": [
+    {
+      "name": "Alt.Chess",
+      "configurations": [
+        "Alt.Chess WEB",
+        "Alt.Chess API"
+      ]
+    }
+  ],
   "configurations": [
     {
       "name": ".NET Core Launch (ConsoleApp)",
@@ -17,7 +26,30 @@
       "stopAtEntry": false
     },
     {
-      "name": ".NET Core Launch (Alt.Chess.Web)",
+      "name": "ConsoleApp.Tests",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "dotnet",
+      "args": [
+        "test",
+        "${workspaceFolder}/solution/ConsoleApp/src/ConsoleApp.Tests/ConsoleApp.Tests.csproj"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "stopAtEntry": false
+    },
+    {
+      "name": "Alt.Chess WEB",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/solution/Alt.Chess/src/Alt.Chess.Web/ClientApp/",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "start"
+      ]
+    },
+    {
+      "name": "Alt.Chess API",
       "type": "coreclr",
       "request": "launch",
       "program": "dotnet",
@@ -31,20 +63,7 @@
       "stopAtEntry": false
     },
     {
-      "name": ".NET Core Test (ConsoleApp.Tests)",
-      "type": "coreclr",
-      "request": "launch",
-      "program": "dotnet",
-      "args": [
-        "test",
-        "${workspaceFolder}/solution/ConsoleApp/src/ConsoleApp.Tests/ConsoleApp.Tests.csproj"
-      ],
-      "cwd": "${workspaceFolder}",
-      "console": "integratedTerminal",
-      "stopAtEntry": false
-    }
-    ,{
-      "name": ".NET Core Test (Alt.Chess.Tests)",
+      "name": "Alt.Chess.Tests",
       "type": "coreclr",
       "request": "launch",
       "program": "dotnet",
