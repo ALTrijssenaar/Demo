@@ -2,7 +2,7 @@
 
 ## Features not yet implemented
 
-- Add change-log.md to track changes.
+- None at this time.
 
 ---
 
