@@ -69,5 +69,19 @@ namespace ConsoleApp.Tests
             var output = RunConsoleApp("add", "a", "b");
             Assert.Contains("Error: Both arguments for 'add' must be numbers", output);
         }
+
+        [Fact]
+        public void GreetCommand_PrintsGreeting()
+        {
+            var output = RunConsoleApp("greet", "Alice");
+            Assert.Contains("Hello, Alice!", output);
+        }
+
+        [Fact]
+        public void AddCommand_ComputesSum()
+        {
+            var output = RunConsoleApp("add", "2", "3");
+            Assert.Contains("Sum: 5", output);
+        }
     }
 }
