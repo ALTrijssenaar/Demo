@@ -11,7 +11,9 @@
     "vscode": {
       "extensions": [
         "ms-dotnettools.csharp",
-        "ms-vscode.vscode-node-azure-pack"
+        "ms-vscode.vscode-node-azure-pack",
+        "Dart-Code.dart-code",
+        "Dart-Code.flutter"
       ]
     }
   }

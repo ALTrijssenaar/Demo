@@ -2,74 +2,78 @@
   "version": "0.2.0",
   "compounds": [
     {
-      "name": "Alt.Chess",
+      "name": "MatchHub (API + Flutter)",
       "configurations": [
-        "Alt.Chess WEB",
-        "Alt.Chess API"
-      ]
+        "MatchHub API",
+        "Flutter App"
+      ],
+      "preLaunchTask": "MatchHub: Build Backend",
+      "stopOnEntry": false
     }
   ],
   "configurations": [
     {
-      "name": ".NET Core Launch (ConsoleApp)",
+      "name": "MatchHub API",
       "type": "coreclr",
       "request": "launch",
       "program": "dotnet",
       "args": [
         "run",
         "--project",
-        "${workspaceFolder}/solution/ConsoleApp/src/ConsoleApp/ConsoleApp.csproj",
-        "help"
+        "${workspaceFolder}/src/backend/MatchHub.Api/MatchHub.Api.csproj",
+        "--configuration",
+        "Debug"
       ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
-      "stopAtEntry": false
+      "stopAtEntry": false,
+      "internalConsoleOptions": "neverOpen",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     },
     {
-      "name": "ConsoleApp.Tests",
-      "type": "coreclr",
+      "name": "Flutter App",
+      "type": "dart",
       "request": "launch",
-      "program": "dotnet",
+      "program": "${workspaceFolder}/apps/matchhub_flutter/lib/main.dart",
+      "cwd": "${workspaceFolder}/apps/matchhub_flutter",
       "args": [
-        "test",
-        "${workspaceFolder}/solution/ConsoleApp/src/ConsoleApp.Tests/ConsoleApp.Tests.csproj"
-      ],
-      "cwd": "${workspaceFolder}",
-      "console": "integratedTerminal",
-      "stopAtEntry": false
-    },
-    {
-      "name": "Alt.Chess WEB",
-      "type": "node",
-      "request": "launch",
-      "cwd": "${workspaceFolder}/solution/Alt.Chess/src/Alt.Chess.Web/ClientApp/",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "start"
+        "--dart-define=MATCHHUB_API_URL=http://localhost:5270",
+        "--dart-define=MATCHHUB_API_TOKEN=test-token"
       ]
     },
     {
-      "name": "Alt.Chess API",
+      "name": "MatchHub API (Debug)",
       "type": "coreclr",
       "request": "launch",
       "program": "dotnet",
       "args": [
         "run",
         "--project",
-        "${workspaceFolder}/solution/Alt.Chess/src/Alt.Chess.Web/Alt.Chess.Web.csproj"
+        "${workspaceFolder}/src/backend/MatchHub.Api/MatchHub.Api.csproj",
+        "--configuration",
+        "Debug"
       ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
-      "stopAtEntry": false
+      "stopAtEntry": false,
+      "sourceLanguages": [
+        "csharp"
+      ],
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     },
     {
-      "name": "Alt.Chess.Tests",
+      "name": "Backend Tests",
       "type": "coreclr",
       "request": "launch",
       "program": "dotnet",
       "args": [
         "test",
-        "${workspaceFolder}/solution/Alt.Chess/src/Alt.Chess.Tests/Alt.Chess.Tests.csproj"
+        "${workspaceFolder}/tests/MatchHub.Api.Tests/MatchHub.Api.Tests.csproj",
+        "--verbosity=minimal"
       ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
