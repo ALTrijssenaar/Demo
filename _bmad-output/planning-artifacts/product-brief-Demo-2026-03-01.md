@@ -36,8 +36,6 @@ Enable seamless, real-time match management for clubs and players, regardless of
 - CI/CD via GitHub Actions (DevContainer-only)
 - Telemetry and logging (OpenTelemetry, Seq/App Insights)
 - Static analysis, security scans, and governance enforcement
-
-# ScoreBot-inspired Features (geïntegreerd)
 - Supersnelle en eenvoudige score-invoer (minimale clicks/taps)
 - Directe visuele feedback bij elke score-update
 - Real-time synchronisatie tussen meerdere devices (teamleden, scheidsrechter, publiek)
