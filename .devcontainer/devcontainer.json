@@ -1,0 +1,18 @@
+{
+  "name": "Demo",
+  "image": "mcr.microsoft.com/devcontainers/dotnet:latest",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22"
+    }
+  },
+  "postCreateCommand": "npm install -g bmad-method",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-dotnettools.csharp",
+        "ms-vscode.vscode-node-azure-pack"
+      ]
+    }
+  }
+}
