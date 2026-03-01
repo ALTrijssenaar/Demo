@@ -1,0 +1,87 @@
+# generated: 2026-03-01
+# project: Demo
+# project_key: NOKEY
+# tracking_system: file-system
+# story_location: /workspaces/Demo/_bmad-output/implementation-artifacts
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Epic Status Transitions:
+#   - backlog -> in-progress: Automatically when first story is created (via create-story)
+#   - in-progress -> done: Manually when all stories reach 'done' status
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review (via Dev's code-review workflow)
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' automatically when first story is created
+# - Stories can be worked in parallel if team capacity allows
+# - SM typically creates next story after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
+
+generated: 2026-03-01
+project: Demo
+project_key: NOKEY
+tracking_system: file-system
+story_location: /workspaces/Demo/_bmad-output/implementation-artifacts
+
+development_status:
+  epic-1: backlog
+  1-1-fast-accurate-score-entry: backlog
+  1-2-instant-score-update-feedback: backlog
+  1-3-real-time-score-sync-across-devices: backlog
+  epic-1-retrospective: optional
+
+  epic-2: backlog
+  2-1-player-match-history-and-stats: backlog
+  2-2-team-statistics-and-progress-analysis: backlog
+  epic-2-retrospective: optional
+
+  epic-3: backlog
+  3-1-push-notifications-for-key-events: backlog
+  3-2-club-match-update-notifications: backlog
+  epic-3-retrospective: optional
+
+  epic-4: backlog
+  4-1-intuitive-ui-with-large-controls: backlog
+  4-2-high-contrast-and-voice-over-support: backlog
+  epic-4-retrospective: optional
+
+  epic-5: backlog
+  5-1-offline-score-entry-and-later-sync: backlog
+  5-2-multi-platform-support-mobile-web-wearables: backlog
+  epic-5-retrospective: optional
+
+  epic-6: backlog
+  6-1-import-export-for-competition-management: backlog
+  6-2-live-refresh-club-dashboard: backlog
+  epic-6-retrospective: optional
+
+  epic-7: backlog
+  7-1-badges-leaderboards-and-personal-stats: backlog
+  7-2-instant-onboarding-without-account: backlog
+  epic-7-retrospective: optional
+
+  epic-8: backlog
+  8-1-secure-reliable-data-storage-and-sync: backlog
+  8-2-test-validation-and-cicd-quality-gate: backlog
+  epic-8-retrospective: optional
+
+  epic-9: backlog
+  9-1-live-score-sharing-via-link-or-qr: backlog
+  9-2-club-system-integration: backlog
+  epic-9-retrospective: optional
